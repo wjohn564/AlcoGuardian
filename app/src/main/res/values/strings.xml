@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">AlcoGuardian</string>
+    <string name="login"><font color="@colors/black">Login</font></string>
+    <string name="email"><font color="@colors/black">Email</font></string>
+    <string name="password"><font color="@colors/black">Password</font></string>
+    <string name="sign_up"><font color="@colors/black">Sign Up</font></string>
+    <string name="click_to_login">Click to Login</string>
+    <string name="click_to_sign_up"><font color="@colors/black">Click to Sign Up</font></string>
+    <string name="logout">Logout</string>
+    <string name="maps">Maps</string>
+    <string name="camera">Reviews</string>
+    <string name="friends">Friends</string>
+    <string name="safety">Safety</string>
+    <string name="profile">Profile</string>
+    <string name="welcome"><font color="@colors/black" size="30">Welcome to</font></string>
+    <string name="AlcoGuardian"><font color="@colors/black" size="30">AlcoGuardian™</font></string>
+    <string name="Presented"><font color="@colors/black" size="12">Presented by Goons Inc.</font></string>
+    <string name="Disclaimer"><font color="@colors/black" size="12">Disclaimer: Please Drink responsibly</font></string>
+    <string name="show_map">Show Map</string>
+    <string name="sip_watch">Sip Watch</string>
+    <string name="saving">Saving...</string>
+    <string name="add_beverage">Add Beverage</string>
+    <string name="enter_beverage_name">Enter Beverage Name</string>
+    <string name="enter_beverage_alcohol">Enter Alcohol Content</string>
+    <string name="add_drink">Add Drink</string>
+    <string name="enter_alcohol_portion">Enter Alcohol Portion</string>
+</resources>
