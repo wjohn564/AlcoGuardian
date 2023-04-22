@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         logoutButton = findViewById(R.id.logout);
+        friendButton = findViewById(R.id.friends);
 
 
         textView = findViewById(R.id.user_details);
@@ -77,14 +78,14 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //
-//        friendButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Friends.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        friendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Friends.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
 

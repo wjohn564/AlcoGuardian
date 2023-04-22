@@ -12,6 +12,12 @@
         android:theme="@style/Theme.AlcoGuardian"
         tools:targetApi="31">
         <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
+            android:name=".Friends"
+            android:exported="false" />
+        <activity
             android:name=".Register"
             android:exported="false" />
         <activity

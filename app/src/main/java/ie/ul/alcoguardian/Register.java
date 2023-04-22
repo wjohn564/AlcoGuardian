@@ -24,6 +24,7 @@ public class Register extends AppCompatActivity {
     TextInputEditText editTextEmail, editTextPassword;
     Button buttonReg;
     FirebaseAuth mAuth;
+    FirebaseUser user;
     ProgressBar progressBar;
     TextView textView;
 
@@ -43,6 +44,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonReg = findViewById(R.id.btn_register);
@@ -87,6 +89,9 @@ public class Register extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), Login.class);
                             startActivity(intent);
                             finish();
+
+
+                            Profile.addProfile(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(Register.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
