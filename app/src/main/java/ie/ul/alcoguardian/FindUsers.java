@@ -15,17 +15,16 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import java.util.ArrayList;
 
 public class FindUsers extends AppCompatActivity {
 
-    private EditText mEmailEditText;
-    private Button mSearchButton;
-    private TextView mResultTextView;
+    private EditText searchEmail;
+    private Button searchButton;
+    private TextView resultTextView;
 
-    // Declare variables for Cloud Firestore
-    private FirebaseFirestore mFirestore;
-    private CollectionReference mUsersCollection;
+    private FirebaseFirestore db;
+    private CollectionReference collectionReference;
+
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -33,20 +32,21 @@ public class FindUsers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_users);
 
-        mEmailEditText = findViewById(R.id.email_edit_text);
-        mSearchButton = findViewById(R.id.search_button);
-        mResultTextView = findViewById(R.id.results_list_view);
+        searchEmail = findViewById(R.id.email_edit_text);
+        searchButton = findViewById(R.id.search_button);
+        resultTextView = findViewById(R.id.results_list_view);
 
-        mFirestore = FirebaseFirestore.getInstance();
-        mUsersCollection = mFirestore.collection("Users");
+        db = FirebaseFirestore.getInstance();
+        collectionReference = db.collection("Users");
 
-        mSearchButton.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                String email = mEmailEditText.getText().toString().trim();
+                String email = searchEmail.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    mResultTextView.setText("Please enter an email address");
+                    resultTextView.setText("Please enter an email address");
                 } else {
                     searchForUsers(email);
                 }
@@ -55,23 +55,23 @@ public class FindUsers extends AppCompatActivity {
     }
 
     private void searchForUsers(String email) {
-        mUsersCollection.whereEqualTo("email", email)
+        collectionReference.whereEqualTo("email", email)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<String> results = new ArrayList<>();
+                            String result = "";
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                results.add(document.getString("email"));
+                                result = document.getString("email");
                             }
-                            if (results.isEmpty()) {
-                                mResultTextView.setText("No users found with this email address");
+                            if (TextUtils.isEmpty(result)) {
+                                resultTextView.setText("No users found with this email address");
                             } else {
-                                mResultTextView.setText("Users found: " + TextUtils.join(", ", results));
+                                resultTextView.setText("User found: " + result);
                             }
                         } else {
-                            mResultTextView.setText("Error searching for users");
+                            resultTextView.setText("Error searching for users");
                         }
                     }
                 });

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,10 +30,14 @@ public class Friends extends AppCompatActivity {
     private List<String> friendsList;
     private ListView friendsListView;
 
+    Button search;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
+
+        search = findViewById(R.id.search);
 
         Intent intent = getIntent();
         auth = FirebaseAuth.getInstance();
@@ -57,6 +63,15 @@ public class Friends extends AppCompatActivity {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(Friends.this,
                         android.R.layout.simple_list_item_1, friendsList);
                 friendsListView.setAdapter(adapter);
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FindUsers.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
