@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button sipWatchButton;
 
     Button showMap;
+    Button showSipWatch;
     Button reviewButton;
     Button friendButton;
     //    Button safetyButton;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         logoutButton = findViewById(R.id.logout);
+        showMap = findViewById(R.id.show_map);
+        showSipWatch = findViewById(R.id.sipWatch);
 
 
         textView = findViewById(R.id.user_details);
@@ -60,13 +63,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-//        showMap.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Map.class);
-//                startActivity(intent);
-//            }
-//        });
+        showMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Map.class);
+                startActivity(intent);
+            }
+        });
 //
 //        reviewButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -97,13 +100,13 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //
-//        showMap.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), SipWatch.class);
-//                startActivity(intent);
-//            }
-//        });
+        showSipWatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SipWatch.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

@@ -24,4 +24,6 @@
     <string name="enter_beverage_alcohol">Enter Alcohol Content</string>
     <string name="add_drink">Add Drink</string>
     <string name="enter_alcohol_portion">Enter Alcohol Portion</string>
+    <string name="clear_list">Clear List</string>
+    <string name="clear">Clear</string>
 </resources>
