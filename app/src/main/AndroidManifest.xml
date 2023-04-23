@@ -12,6 +12,15 @@
         android:theme="@style/Theme.AlcoGuardian"
         tools:targetApi="31">
         <activity
+            android:name=".UsersAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".FindUsers"
+            android:exported="false" />
+        <activity
+            android:name=".FindFriends"
+            android:exported="false" />
+        <activity
             android:name=".Profile"
             android:exported="false" />
         <activity

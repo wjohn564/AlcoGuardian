@@ -1,43 +1,73 @@
 package ie.ul.alcoguardian;
 
-import static android.content.ContentValues.TAG;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
-import com.google.firebase.firestore.Source;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Friends extends AppCompatActivity {
 
+    private FirebaseFirestore db;
+
+    private FirebaseAuth auth;
+    private FirebaseUser user;
+    private List<String> friendsList;
+    private ListView friendsListView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_friends);
+
+        Intent intent = getIntent();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        db = FirebaseFirestore.getInstance();
+
+        friendsList = new ArrayList<>();
+        friendsListView = findViewById(R.id.friendList);
+
+        // Get the "Friends" collection for the current user's email
+        DocumentReference friendsListRef = db.collection("Friends")
+                .document(user.getEmail());
+
+        friendsListRef.collection("Friends").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    String friendEmail = documentSnapshot.getId();
+                    friendsList.add(friendEmail);
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(Friends.this,
+                        android.R.layout.simple_list_item_1, friendsList);
+                friendsListView.setAdapter(adapter);
+            }
+        });
+    }
+}
+
+
+/*public class Friends extends AppCompatActivity {
+
     private Button viewButton;
     private Button deleteFriendButton;
-    String selectedFriendEmail;
+    String selectedFriendEmail = "";
     private ListView friendListView;
     private String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
@@ -62,8 +92,13 @@ public class Friends extends AppCompatActivity {
         deleteFriendButton = findViewById(R.id.deleteFriendButton);
         friendListView = findViewById(R.id.friendList);
 
-        // Call the showFriendList() method with the current user's email
-        showFriendList(userEmail);
+       friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String friendEmail = adapterView.getItemAtPosition(position).toString();
+                friendSelected(friendEmail);
+            }
+        });
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -79,26 +114,50 @@ public class Friends extends AppCompatActivity {
         doc.set(friends_list, SetOptions.merge());
 
         addFriend(user.getEmail(), selectedFriendEmail);
-        viewButton.setOnClickListener(new View.OnClickListener() {
+       viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (friendSelected) {
                     viewFriendProfile(selectedFriendEmail);
                 }
             }
-        });
+        })
 
         deleteFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (friendSelected) {
-                    //fill in
                    removeFriend(userEmail, selectedFriendEmail);
                 }
             }
        });
 
     }
+
+   public void getFriends(final OnCompleteListener<QuerySnapshot> listener) {
+        DocumentReference userRef = db.collection("Friends").document(userEmail);
+
+        userRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            List<String> friends = (List<String>) documentSnapshot.get("Friends");
+                            if (friends != null) {
+                                Query query = db.collection("Friends").document(userEmail).getParent().whereIn("Email", friends);
+                                query.get().addOnCompleteListener(listener);
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error getting friends", e);
+                    }
+                });
+    }
+
 
     public void showFriendList(String userEmail) {
         db.collection("Friends")
@@ -131,11 +190,12 @@ public class Friends extends AppCompatActivity {
     }
 
 
-    public void friendSelected(String friendRef) {
+    public String friendSelected(String friendRef) {
         friendSelected = true;
         selectedFriendEmail = friendRef;
         viewButton.setEnabled(true);
         deleteFriendButton.setEnabled(true);
+        return selectedFriendEmail;
     }
 
     public void noFriendSelected() {
@@ -256,4 +316,4 @@ public class Friends extends AppCompatActivity {
                     }
                 });
     }
-}
+}*/
