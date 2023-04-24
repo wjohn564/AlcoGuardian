@@ -23,36 +23,27 @@
         android:layout_below="@id/titleTextView"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:layout_above="@+id/viewProfileButton"
+        android:layout_above="@+id/search"
         />
 
     <Button
-        android:id="@+id/viewProfileButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Profile"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_alignParentEnd="true"/>
-
-    <Button
-        android:id="@+id/deleteFriendButton"
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Delete Friend" />
+        android:text="Back" />
 
     <Button
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        android:layout_toEndOf="@id/deleteFriendButton"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/back"
         android:text="Search"/>
 
 </RelativeLayout>
