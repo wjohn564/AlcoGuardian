@@ -8,7 +8,7 @@
     <string name="click_to_sign_up"><font color="@colors/black">Click to Sign Up</font></string>
     <string name="logout">Logout</string>
     <string name="maps">Maps</string>
-    <string name="camera">Reviews</string>
+    <string name="camera">Review</string>
     <string name="friends">Friends</string>
     <string name="safety">Safety</string>
     <string name="profile">Profile</string>

@@ -1,11 +1,17 @@
 package ie.ul.alcoguardian;
 
+import static android.content.ContentValues.TAG;
+
+import static ie.ul.alcoguardian.Profile.db;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +19,17 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     FirebaseUser user;
     private static final int RC_SIGN_IN = 123; //android:layout_height="83dp"
+
+    private FirebaseFirestore db;
+    private CollectionReference collectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 //                finish();
 //            }
 //        });
-//
+
         friendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 //                finish();
 //            }
 //        });
-//
+
 //        showMap.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -106,8 +126,30 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reviewsRef = database.getReference("Reviews");
+        reviewsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Review> reviews = new ArrayList<>();
+                for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
+                    String business = reviewSnapshot.child("business").getValue(String.class);
+                    String address = reviewSnapshot.child("address").getValue(String.class);
+                    String review = reviewSnapshot.child("review").getValue(String.class);
+                    float stars = reviewSnapshot.child("stars").getValue(float.class);
+                    String user = reviewSnapshot.child("user").getValue(String.class);
+                    Review reviewObj = new Review(user, address, business, review, stars);
+                    reviews.add(reviewObj);
+                }
+                RecyclerView recyclerView = findViewById(R.id.recyclerView);
+                recyclerView.setAdapter(new displayReview(reviews));
+            }
 
-    }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "Failed to read reviews", error.toException());
+            }
 
-
+    });
+}
 }

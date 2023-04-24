@@ -30,12 +30,52 @@
             android:insetBottom="1dp"
             android:text="@string/profile" />
 
+        <Button
+            android:id="@+id/friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:insetTop="1dp"
+            android:insetBottom="1dp"
+            android:text="@string/friends" />
+
         <TextView
             android:id="@+id/user_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="617dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Reviews" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="263dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Memories" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="313dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
     <LinearLayout
@@ -55,18 +95,18 @@
             android:text="@string/maps" />
 
         <Button
-            android:id="@+id/camera"
+            android:id="@+id/memory"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Memory" />
+
+        <Button
+            android:id="@+id/review"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/camera" />
-
-        <Button
-            android:id="@+id/friends"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/friends" />
 
         <Button
             android:id="@+id/sipWatch"
@@ -74,6 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sip_watch" />
+
     </LinearLayout>
 
 </LinearLayout>
