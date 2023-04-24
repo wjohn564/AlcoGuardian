@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "384315626738",
+    "project_id": "alcoguardian",
+    "storage_bucket": "alcoguardian.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384315626738:android:4187ecb3c0ddba46ac6c6b",
+        "android_client_info": {
+          "package_name": "ie.ul.alcoguardian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384315626738-25btukflhgs94tn861cjefma52fb8jit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh8goL8ZrhORpDCVmdoQZPxcO9T7voo0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384315626738-25btukflhgs94tn861cjefma52fb8jit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
