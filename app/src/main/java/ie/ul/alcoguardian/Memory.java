@@ -1,16 +1,17 @@
-//package ie.ul.alcoguardian;
-//
-//import static android.content.ContentValues.TAG;
-//import static ie.ul.alcoguardian.Profile.db;
-//
-//import android.util.Log;
-//
-//import androidx.annotation.NonNull;
-//
-//import com.google.android.gms.tasks.OnFailureListener;
-//import com.google.android.gms.tasks.OnSuccessListener;
-//
-//public class Memory {
+package ie.ul.alcoguardian;
+
+import static android.content.ContentValues.TAG;
+import static ie.ul.alcoguardian.Profile.db;
+
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+public class Memory extends AppCompatActivity {
 //
 //    private String memory;
 //    private String date;
@@ -61,4 +62,4 @@
 ////
 ////    }
 //
-//}
+}

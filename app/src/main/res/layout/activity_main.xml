@@ -60,6 +60,7 @@
             android:text="Reviews" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reviewRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="263dp" />
 
@@ -95,14 +96,14 @@
             android:text="@string/maps" />
 
         <Button
-            android:id="@+id/memory"
+            android:id="@+id/memoryButton"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Memory" />
 
         <Button
-            android:id="@+id/review"
+            android:id="@+id/reviewButton"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

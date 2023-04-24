@@ -6,8 +6,10 @@ import static ie.ul.alcoguardian.Profile.db;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button showMap;
     Button reviewButton;
+    Button memoryButton;
     Button friendButton;
     //    Button safetyButton;
     Button profileButton;
@@ -49,15 +52,23 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private CollectionReference collectionReference;
+    private Context mContext;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://alcoguardian-default-rtdb.europe-west1.firebasedatabase.app/");
+    DatabaseReference rootRef = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mContext = this;
+
         auth = FirebaseAuth.getInstance();
         logoutButton = findViewById(R.id.logout);
         friendButton = findViewById(R.id.friends);
+        reviewButton = findViewById(R.id.reviewButton);
+        memoryButton = findViewById(R.id.memoryButton);
 
 
         textView = findViewById(R.id.user_details);
@@ -89,14 +100,23 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //
-//        reviewButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Review.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Review.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        memoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Memory.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         friendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,24 +146,44 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reviewsRef = database.getReference("Reviews");
         reviewsRef.addValueEventListener(new ValueEventListener() {
             @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                List<ReviewObj> reviews = new ArrayList<>();
+//                for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
+//                    String business = reviewSnapshot.child("business").getValue(String.class);
+//                    String address = reviewSnapshot.child("address").getValue(String.class);
+//                    String review = reviewSnapshot.child("review").getValue(String.class);
+//                    float stars = reviewSnapshot.child("stars").getValue(float.class);
+//                    String user = reviewSnapshot.child("user").getValue(String.class);
+//                    ReviewObj reviewObj = new ReviewObj(user, address, business, review, stars);
+//                    reviews.add(reviewObj);
+//                }
+//                RecyclerView recyclerView = findViewById(R.id.recyclerView);
+//                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+//                recyclerView.setAdapter(new displayReview(mContext, reviews));
+//
+//            }
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Review> reviews = new ArrayList<>();
+                List<ReviewObj> reviews = new ArrayList<>();
                 for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
                     String business = reviewSnapshot.child("business").getValue(String.class);
                     String address = reviewSnapshot.child("address").getValue(String.class);
                     String review = reviewSnapshot.child("review").getValue(String.class);
                     float stars = reviewSnapshot.child("stars").getValue(float.class);
                     String user = reviewSnapshot.child("user").getValue(String.class);
-                    Review reviewObj = new Review(user, address, business, review, stars);
+                    ReviewObj reviewObj = new ReviewObj(user, address, business, review, stars);
                     reviews.add(reviewObj);
                 }
-                RecyclerView recyclerView = findViewById(R.id.recyclerView);
-                recyclerView.setAdapter(new displayReview(reviews));
+                RecyclerView reviewRecyclerView = findViewById(R.id.reviewRecyclerView);
+                reviewRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                System.out.println("Heloooooooooooooooooooooooooooooooooo\n\n\n\n\n\n\n" + "\n\n\nNumber of reviews: " + reviews.size());
+                displayReview adapter = new displayReview(mContext, reviews);
+                reviewRecyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
