@@ -119,13 +119,5 @@ public class Review extends AppCompatActivity implements Serializable {
 //                    }
 //                });
 //    }
-//
-//    public void display_review() {
-//        // Create a reference to the cities collection
-//        CollectionReference citiesRef = db.collection("Reviews");
-//
-//// Create a query against the collection.
-//        Query query = citiesRef.whereEqualTo("state", "CA");
-//    }
 }
 

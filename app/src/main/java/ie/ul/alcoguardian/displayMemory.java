@@ -1,60 +1,55 @@
-//package ie.ul.alcoguardian;
-//
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.RatingBar;
-//import android.widget.TextView;
-//
-//import androidx.annotation.NonNull;
-//import androidx.recyclerview.widget.RecyclerView;
-//
-//import java.util.List;
-//
-//public class displayMemory extends RecyclerView.Adapter<displayMemory.ViewHolder>{
-//    private List<Review> reviews;
-//
-//    public displayMemory(List<Review> reviews) {
-//        this.reviews = reviews;
-//    }
-//
-//    @NonNull
-//    @Override
-//    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.review_item_layout, parent, false);
-//        return new ViewHolder(view);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        Review review = reviews.get(position);
-//        holder.businessTextView.setText(review.getBusiness());
-//        holder.addressTextView.setText(review.getAddress());
-//        holder.reviewTextView.setText(review.getReview());
-//        holder.starsRatingBar.setRating(review.getStars());
-//        holder.userTextView.setText(review.getUser());
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return reviews.size();
-//    }
-//
-//    public static class ViewHolder extends RecyclerView.ViewHolder {
-//        public TextView businessTextView;
-//        public TextView addressTextView;
-//        public TextView reviewTextView;
-//        public RatingBar starsRatingBar;
-//        public TextView userTextView;
-//
-//        public ViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            businessTextView = itemView.findViewById(R.id.businessTextView);
-//            addressTextView = itemView.findViewById(R.id.addressTextView);
-//            reviewTextView = itemView.findViewById(R.id.reviewTextView);
-//            starsRatingBar = itemView.findViewById(R.id.starsRatingBar);
-//            userTextView = itemView.findViewById(R.id.userTextView);
-//        }
-//    }
-//}
+package ie.ul.alcoguardian;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class displayMemory extends RecyclerView.Adapter<displayMemory.ViewHolder>{
+    private List<MemoryObj> memory;
+    private Context mContext;
+
+    public displayMemory(Context context, List<MemoryObj> memory) {
+        this.mContext = context;
+        this.memory = memory;
+    }
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_display_memory, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.user.setText(memory.get(position).getUser());
+        holder.memory.setText(memory.get(position).getMemory());
+        holder.date.setText(memory.get(position).getDate());
+    }
+
+    @Override
+    public int getItemCount() {
+        return memory.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView user, memory, date;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            memory = itemView.findViewById(R.id.memory_text);
+            date = itemView.findViewById(R.id.date);
+            user = itemView.findViewById(R.id.user_reference);
+        }
+    }
+}
+
+

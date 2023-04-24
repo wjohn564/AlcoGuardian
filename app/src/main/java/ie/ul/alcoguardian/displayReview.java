@@ -12,53 +12,49 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-//
-//    public class displayReview extends RecyclerView.Adapter<ie.ul.alcoguardian.displayReview.ViewHolder>{
-//        private List<ReviewObj> reviews;
-//        private Context mContext;
-//
-//        public displayReview(Context context, List<ReviewObj> reviews) {
-//            this.mContext = context;
-//            this.reviews = reviews;
-//        }
-//        @NonNull
-//        @Override
-//        public ie.ul.alcoguardian.displayReview.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            View view = LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.activity_display_review, parent, false);
-//            return new ie.ul.alcoguardian.displayReview.ViewHolder(view);
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull ie.ul.alcoguardian.displayReview.ViewHolder holder, int position) {
-//            ReviewObj review = reviews.get(position);
-//            holder.businessTextView.setText(review.getBusiness());
-//            holder.addressTextView.setText(review.getAddress());
-//            holder.reviewTextView.setText(review.getReview());
-//            holder.starsRatingBar.setRating(review.getStars());
-//            holder.userTextView.setText(review.getUser());
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return reviews.size();
-//        }
-//
-//        public static class ViewHolder extends RecyclerView.ViewHolder {
-//            public TextView businessTextView;
-//            public TextView addressTextView;
-//            public TextView reviewTextView;
-//            public RatingBar starsRatingBar;
-//            public TextView userTextView;
-//
-//            public ViewHolder(@NonNull View itemView) {
-//                super(itemView);
-//                businessTextView = itemView.findViewById(R.id.business_name);
-//                addressTextView = itemView.findViewById(R.id.business_address);
-//                reviewTextView = itemView.findViewById(R.id.review_text);
-//                starsRatingBar = itemView.findViewById(R.id.rating_bar);
-//                userTextView = itemView.findViewById(R.id.user_reference);
-//            }
-//        }
-//    }
+
+public class displayReview extends RecyclerView.Adapter<displayReview.ViewHolder>{
+    private List<ReviewObj> reviews;
+    private Context mContext;
+
+    public displayReview(Context context, List<ReviewObj> reviews) {
+        this.mContext = context;
+        this.reviews = reviews;
+    }
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_display_review, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.business.setText(reviews.get(position).getBusiness());
+        holder.address.setText(reviews.get(position).getAddress());
+        holder.review.setText(reviews.get(position).getReview());
+        holder.stars.setRating(reviews.get(position).getStars());
+        holder.user.setText(reviews.get(position).getUser());
+    }
+
+    @Override
+    public int getItemCount() {
+        return reviews.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView business, address, review, user;
+        public RatingBar stars;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            business = itemView.findViewById(R.id.business_name);
+            address = itemView.findViewById(R.id.business_address);
+            review = itemView.findViewById(R.id.review_text);
+            stars = itemView.findViewById(R.id.rating_bar);
+            user = itemView.findViewById(R.id.user_reference);
+        }
+    }
+}
+
 
